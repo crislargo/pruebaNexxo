@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{empleado.id == null ? "Crear" : "Editar"} Empleado</title>
+</h:head>
+<h:body>
+	<p:panel id="basic"
+		header="#{empleado.id == null ? Crear : Editar} Empleado"
+		footer="Crear Persona" style="margin-bottom:20px">
+		
+		<p:messages id="messages" showDetail="true" closable="true">
+		<p:autoUpdate/>
+   </p:messages>
+		<h:form>
+		<p:commandButton action="#{empleadoBean.mostrarEmpleados()}"
+			value="Listar Empleados"></p:commandButton>
+		</h:form>
+		<h:panelGrid columns="1" cellpadding="10">
+
+			<h:form id="formulario">
+				<p:inputText id="id" value="#{empleado.id}" type="hidden" />
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+	        Empleado
+	    </f:facet>
+
+					<h:outputLabel for="documentoTipo" value="Tipo Documento: *" />
+					<p:inputText id="documentoTipo" value="#{empleado.documentoTipo}"
+						placeholder="CC, TI, CE" required="true" />
+					<h:outputLabel for="documentoNumero" value="Número de Documento: *" />
+					<p:inputText id="documentoNumero"
+						value="#{empleado.documentoNumero}" placeholder="1130085965" required="true" />
+					<h:outputLabel for="nombres" value="Nombres: *" />
+					<p:inputText id="nombres" value="#{empleado.nombres}"
+						placeholder="Nombres" required="true" />
+					<h:outputLabel for="apellidos" value="Apellidos: *" />
+					<p:inputText id="apellidos" value="#{empleado.apellidos}"
+						placeholder="Apellidos" required="true" />
+					<h:outputLabel for="departamentosId" value="Departamentos: *" />
+					<p:selectOneMenu id="departamentosId"
+						value="#{empleado.departamentosId}">
+						<f:selectItems value="#{empleadoBean.consultarDepartamentos()}"
+							var="departamento" itemValue="#{departamento.id}"
+							itemLabel="#{departamento.departamentoNombre}" />
+					</p:selectOneMenu>
+					<h:outputLabel for="ciudad" value="Ciudad: *" />
+					<p:inputText id="ciudad" value="#{empleado.ciudad}"
+						placeholder="Ciudad" required="true"  />						
+					<h:outputLabel for="direccion" value="Dirección *" />
+					<p:inputText id="direccion" value="#{empleado.direccion}"
+						placeholder="Calle 45 #89-25" />
+					<h:outputLabel for="email" value="*Email *" />
+					<p:inputText id="email" value="#{empleado.email}"
+						placeholder="correo@dominio.com" required="true" />
+					<h:outputLabel for="telefono" value="Teléfono: *" />
+					<p:inputText id="telefono" value="#{empleado.telefono}"
+						placeholder="315 789 4578" required="true" />
+					<f:facet name="footer">
+						<p:commandButton action="#{empleadoBean.guardar(empleado)}"
+							value="#{empleado.id == null ? 'Crear' : 'Editar'}"
+							icon="ui-icon-check" />
+					</f:facet>
+				</p:panelGrid>
+			</h:form>
+		</h:panelGrid>
+	</p:panel>
+</h:body>
+</html>

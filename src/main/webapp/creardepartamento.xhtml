@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>#{empleado.id == null ? "Crear" : "Editar"} Departamento</title>
+</h:head>
+<h:body>
+	<p:panel id="basic"
+		header="#{empleado.id == null ? Crear : Editar} Departamento"
+		footer="Departamento" style="margin-bottom:20px">
+		
+		<p:messages id="messages" showDetail="true" closable="true">
+		<p:autoUpdate/>
+   </p:messages>
+		<h:form>
+		<p:commandButton action="#{departamentoBean.mostrarDepartamentos()}"
+			value="Listar Departamentos"></p:commandButton>
+		</h:form>
+		<h:panelGrid columns="1" cellpadding="10">
+
+			<h:form id="formulario">
+				<p:inputText id="id" value="#{departamento.id}" type="hidden" />
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+	        Departamento
+	    </f:facet>
+
+					<h:outputLabel for="departamentoNombre" value="*Nombre Departamento *" />
+					<p:inputText id="nombreDepartamento" value="#{departamento.departamentoNombre}"
+						placeholder="Talento Humano" required="true" />
+					<h:outputLabel for="departamentoCodigo" value="Departamento Código *" />
+					<p:inputText id="departamentoCodigo" value="#{departamento.departamentoCodigo}"
+						placeholder="C199" required="true" />
+					<f:facet name="footer">
+						<p:commandButton action="#{departamentoBean.guardar(departamento)}"
+							value="#{departamento.id == null ? 'Crear' : 'Editar'}"
+							icon="ui-icon-check" />
+					</f:facet>
+				</p:panelGrid>
+			</h:form>
+		</h:panelGrid>
+	</p:panel>
+</h:body>
+</html>

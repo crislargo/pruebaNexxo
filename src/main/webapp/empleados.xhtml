@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Lista de Empleados</title>
+</h:head>
+<h:body>
+  <center><h1>Lista de Empleados</h1></center>  
+<h:form>
+    <!-- Otros componentes de formulario -->
+    
+    <p:button outcome="#{empleadoBean.nuevo()}" value="Crear Empleado" />
+        <p:button outcome="#{departamentoBean.nuevo()}" value="Crear Departamento" />
+</h:form>
+	<p:messages id="messages" showDetail="true" closable="true">
+		<p:autoUpdate/>
+   </p:messages>
+
+    <h:form>
+        <p:dataTable var="empleado" value="#{empleados}" emptyMessage="No se encontraron empleados">
+            <p:column headerText="ID">
+                #{empleado.id}
+            </p:column>
+ 			<p:column headerText="Tipo Documento">
+                #{empleado.documentoTipo}
+            </p:column>
+            <p:column headerText="Documento">
+                #{empleado.documentoNumero}
+            </p:column>
+            <p:column headerText="Nombres">
+                #{empleado.nombres}
+            </p:column>
+            <p:column headerText="Apellidos">
+                #{empleado.apellidos}
+            </p:column>
+             <p:column headerText="Direccion">
+                #{empleado.direccion}
+            </p:column>
+            <p:column headerText="Ciudad">
+                #{empleado.ciudad}
+            </p:column>
+            <p:column headerText="Email">
+                #{empleado.email}
+            </p:column>
+             <p:column headerText="Telefono">
+                #{empleado.telefono}
+            </p:column>
+             <p:column headerText="Departamento">
+           		#{empleadoBean.obtenerNombreDepartamento(empleado.departamentosId)}
+            </p:column>
+            <p:column headerText="F Creación">
+                #{empleado.fechaHoraCrea}
+            </p:column>
+            <p:column headerText="Acciones">
+            	<p:commandButton action="#{empleadoBean.mostrarEditar(empleado.id)}" value="Editar"></p:commandButton>
+            	<p:commandButton value="Eliminar Empleado" onclick="PF('confirmDialog#{empleado.id}').show();">
+		            <p:dialog widgetVar="confirmDialog#{empleado.id}" message="Estas seguro de eliminar este empleado?" header="Confirmación de eliminación de empleado">
+		            	<p:commandButton value="SI!" onclick="PF('confirmDialog').hide();" action="#{empleadoBean.eliminar(empleado.id)}"></p:commandButton>
+		            	<p:commandButton value="NO" onclick="PF('confirmDialog').hide();" ></p:commandButton>
+		            </p:dialog>
+	            </p:commandButton>
+         
+            </p:column>            
+            <!-- Agrega más columnas según los atributos de tu entidad Empleado -->
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
